@@ -9,5 +9,5 @@
 	url = https://github.com/locationtech/jts.git
 [submodule "graphhopper"]
 	path = graphhopper
-	url = https://github.com/graphhopper/graphhopper.git
+	url = https://github.com/bikemap/graphhopper.git
         branch = ios_compatibility
