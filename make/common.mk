@@ -10,7 +10,7 @@ endif
 
 ifndef J2OBJC_ARCHS
 # Possible architectures: macosx iphone iphone64 iphonev7s simulator
-J2OBJC_ARCHS = iphone64 simulator
+J2OBJC_ARCHS = iphone64 simulator simulatorm1
 endif
 
 # xcrun finds a specified tool in the current SDK /usr/bin directory.
