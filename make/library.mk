@@ -11,10 +11,10 @@ FAT_LIB_SIMULATOR_SDK_DIR := $(shell bash $(SYSROOT_SCRIPT) --iphonesimulator)
 
 # If you can define different architectures and include them into arch_flags array
 # e.g. FAT_LIB_IPHONEV7S_FLAGS = -arch armv7s -miphoneos-version-min=5.0 -isysroot $(FAT_LIB_IPHONE_SDK_DIR)
-FAT_LIB_IPHONE64_FLAGS = -arch arm64 -miphoneos-version-min=13.0 -isysroot $(FAT_LIB_IPHONE_SDK_DIR)
-FAT_LIB_SIMULATOR_FLAGS = -arch x86_64 -miphoneos-version-min=13.0 -isysroot $(FAT_LIB_SIMULATOR_SDK_DIR)
-FAT_LIB_SIMULATORM1_FLAGS = -arch arm64 -target arm64-apple-ios13.0-simulator -miphoneos-version-min=13.0 -isysroot $(FAT_LIB_SIMULATOR_SDK_DIR)
-FAT_LIB_XCODE_FLAGS = $(ARCH_FLAGS) -miphoneos-version-min=13.0 -isysroot $(SDKROOT)
+FAT_LIB_IPHONE64_FLAGS = -arch arm64 -miphoneos-version-min=14.0 -isysroot $(FAT_LIB_IPHONE_SDK_DIR)
+FAT_LIB_SIMULATOR_FLAGS = -arch x86_64 -miphoneos-version-min=14.0 -isysroot $(FAT_LIB_SIMULATOR_SDK_DIR)
+FAT_LIB_SIMULATORM1_FLAGS = -arch arm64 -target arm64-apple-ios14.0-simulator -miphoneos-version-min=14.0 -isysroot $(FAT_LIB_SIMULATOR_SDK_DIR)
+FAT_LIB_XCODE_FLAGS = $(ARCH_FLAGS) -miphoneos-version-min=14.0 -isysroot $(SDKROOT)
 
 ifdef FAT_LIB_PRECOMPILED_HEADER
 #ifndef CONFIGURATION_BUILD_DIR
