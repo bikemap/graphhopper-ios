@@ -25,6 +25,7 @@ git clone https://github.com/graphhopper/graphhopper-ios.git
 cd graphhopper-ios
 git submodule init
 git submodule update
+git submodule update --remote --init --recursive graphhopper
 make cleanall
 make class.list
 make translate
@@ -45,9 +46,7 @@ Feel free to raise problems or questions in [our forum](https://discuss.graphhop
 ## Usage
 
 - You can add *graphhopper.xcodeproj* as subproject to your project (see details in Xcode section).
-- Or you can compile it as fat library (libgraphhopper.a) using `make` and add it and necessary interface files to your project.
-Current setup includes Simulator (x86_64) and iPhone 5s and higher (arm64) architectures. 
-Not checked on Apple Silicon, although arm64 should cover it (see other details in Terminal section). 
+- Or you can compile it as a XCFramework (see Terminal section)
 
 ### Xcode
 
@@ -77,10 +76,41 @@ You're now ready to use GraphHopper on iOS and OS X.
 Alternatively, you can translate and compile the library by invoking `make`  in the Terminal.
 You can modify `common.mk` and `library.mk` to include all necessary arhitectures. This article provides
 good overview of options: https://docs.elementscompiler.com/Platforms/Cocoa/CpuArchitectures/ 
-Then link the library `graphhopper-ios/build/libgraphhopper.a` and it's header files at `graphhopper-ios/src` 
-manually into your project. For all the other configurations see the Xcode section above.
+Currently scripts include Simulator (arm64) and iPhone architectures. 
 
-> By default this method compiles the library for the following architectures: simulator, iphoneos.
+After you get libraries (achitecture-libgraphhopper.a) using `make`, create XCFramework form it using 
+```xcodebuild -create-xcframework \
+    -library "build/iphone64-libgraphhopper.a" \
+    -library "build/simulator-libgraphhopper.a" \
+    -output "xcframeworks/GraphHopperLib.xcframework"
+```
+To make Obj-C libraries available from swift code we should decorate xcframework as a module.
+For this inside each architecture folder in framework we create Headers folder where we add:
+module.modulemap file, all headers from graphhopper (could be found in src folder)
+and umbrella header GraphHopperLib.h where we list interfaces available from swift.
+Here is content of module.modulemap
+```
+module GraphHopperLib {
+    umbrella header "GraphHopperLib.h"
+    export *
+}
+```
+Along with resulting GraphHopper.xcframework we also need to add JRE.xcframework to the project to
+provide runtime Java libraries. To make project binary smaller as alternative we coudl instead create manually
+xcframeworks for these libraries using ios-arm64 and ios-arm64-simulator archs:
+- libjre_core.a
+- libjre_net.a
+- libjre_security.a
+- libjre_io.a
+- libire_util.a
+- libjre_xml.a
+- libjre_zip.a
+
+To make link phase succeed we also need to add structured headers for all obj-c libraries included.
+For this we copy src folder from graphhopper and include folder from j2objc to the project but we don’t need
+to add them to project structure. Instead both should be added to User Header Search Paths of Build Settings
+with recursive option. 
+`${SRCROOT}/GraphHopper/Headers`
 
 ## Example
 
@@ -88,9 +118,9 @@ manually into your project. For all the other configurations see the Xcode secti
 
 ## Requirements
 
-* iOS 11.0+ or OS X 10.10 (it might work on older versions but haven't tested)
-* JDK 1.8 or higher
-* Xcode 11.0 or higher
+* iOS 14.0+ or OS X 10.10 (it might work on older versions but haven't tested)
+* JDK 21 or higher
+* Xcode 13.0 or higher
 
 ## Troubleshooting
 
@@ -109,4 +139,35 @@ The dependencies j2objc, hppc and jts should be downloaded automatically if not 
 ```rm -rf dependencies/hppc dependencies/jts j2objc
 make dependencies/hppc dependencies/jts j2objc
 ```
+
+## Updating GraphHopper
+
+It's not a trivial process which might require changes on all sides: Java, build scripts, Xcode project.
+But general steps are:
+
+1. Update graphhopper submodule to point to the branch of graphhopper with version you want to target.
+Usually it's `ios_compatibility` If the submodule was already cloned to get the latest commit of the branch
+you have to delete submobule and add it again using commands:
+```
+git submodule deinit -f -- graphhopper
+git rm -f graphhopper
+rm -rf .git/modules/graphhopper 
+git submodule add -b ios_compatibility https://github.com/graphhopper/graphhopper.git graphhopper
+git submodule update --init --recursive
+```
+
+2. Try to run
+```
+make cleanall
+make class.list
+make translate
+```
+You will most probably get errors due to missing dependencies. Install missing dependencies as submodules.
+If necessary some folders of dependencies could be ignored on `class.list` creation.
+For example tests should be always excluded as we don't need them and they often bring other unwanted dependencies.
+Sometimes Java code must be adjusted to get rid of dependency. For example `javax.` is only used on Java compilation step
+and we can't add it as dependency to this pipeflow. 
+
+3. After you get `.a` libraries combine them as xcframework as described in Terminal and try to add to the project.
+Try to run it. Most likely you will get errors due to changed interfaces. Adjust swift code accordingly.
 
