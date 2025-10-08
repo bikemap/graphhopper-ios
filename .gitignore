@@ -4,6 +4,8 @@ xcuserdata
 /build/
 /j2objc/
 /src/
+/dependencies/
+/xcframeworks/
 ._j2objc
 *~
 *.swp

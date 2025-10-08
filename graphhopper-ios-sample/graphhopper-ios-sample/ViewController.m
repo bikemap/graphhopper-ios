@@ -130,7 +130,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [_mapView setCenterCoordinate: CLLocationCoordinate2DMake(54.185386, -4.564190) animated: true];
+    [_mapView setCenterCoordinate: CLLocationCoordinate2DMake(48.196668, 16.395889) animated: true];
 }
 
 #pragma mark - Things for switching between maps

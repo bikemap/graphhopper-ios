@@ -1,6 +1,8 @@
 TRANSLATE_TARGET := $(GEN_OBJC_DIR)/.translate_mark
 TRANSLATE_CMD = j2objc/j2objc --prefixes dependencies/prefixes.properties\
+			-classpath "/Users/oleksii/Data/Bikemap/graphhopper-ios/j2objc/lib/jre_emul.jar:$CLASSPATH"\
  			-sourcepath $(TRANSLATE_SOURCEPATH) $(TRANSLATE_ARGS) -d $(GEN_OBJC_DIR)
+ 			
 
 translate: $(TRANSLATE_TARGET)
 	@:
