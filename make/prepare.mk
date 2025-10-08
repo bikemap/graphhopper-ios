@@ -1,7 +1,9 @@
 class.list: dependencies/class-exclude.grep dependencies/hppc/target/generated-sources j2objc
 	find graphhopper/core/src/main/java graphhopper/web-api/src/main/java dependencies/hppc/hppc/src/main/java dependencies/hppc/hppc/target/generated-sources dependencies/jts/modules/core/src/main/java -name '*.java' | grep -vf dependencies/class-exclude.grep > $@
 	find dependencies/jackson/annotations/src dependencies/jackson/core/src dependencies/jackson/databind/src -name '*.java' | grep -vf dependencies/class-exclude.grep >> $@
-	find dependencies/fastdoubleparser/fastdoubleparser-dev/src dependencies/fastdoubleparser/fastdoubleparser-java8/src -name '*.java' | grep -vf dependencies/class-exclude.grep >> $@
+	find dependencies/fastdoubleparser/fastdoubleparser-java8/src/main/java -name '*.java' | grep -vf dependencies/class-exclude.grep >> $@
+	find dependencies/janino/janino/src/main/java dependencies/janino/commons-compiler/src/main/java dependencies/janino/commons-compiler-jdk/src/main/java -name '*.java' | grep -vf dependencies/class-exclude.grep >> $@
+	find dependencies/stubs/src/main/java -name '*.java' >> $@
 	find dependencies/fake_slf4j/src -name '*.java' >> $@
 
 j2objc:

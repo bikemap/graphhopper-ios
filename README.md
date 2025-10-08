@@ -155,6 +155,7 @@ rm -rf .git/modules/graphhopper
 git submodule add -b ios_compatibility https://github.com/graphhopper/graphhopper.git graphhopper
 git submodule update --init --recursive
 ```
+Add dependency to `make/prepare.mk` so it's classes will be included in list for transpilation.
 
 2. Try to run
 ```
@@ -163,7 +164,8 @@ make class.list
 make translate
 ```
 You will most probably get errors due to missing dependencies. Install missing dependencies as submodules.
-If necessary some folders of dependencies could be ignored on `class.list` creation.
+If necessary some folders of dependencies could be ignored on `class.list` creation by adding them to `dependencies/class-exclude.grep`
+Also ensure that exclude is configured properly in `make/prepare.mk`
 For example tests should be always excluded as we don't need them and they often bring other unwanted dependencies.
 Sometimes Java code must be adjusted to get rid of dependency. For example `javax.` is only used on Java compilation step
 and we can't add it as dependency to this pipeflow. 
