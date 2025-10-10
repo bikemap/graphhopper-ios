@@ -1,7 +1,17 @@
 s|graphhopper/core/src/main/java/||
 s|graphhopper/api/src/main/java/||
+s|graphhopper/web-api/src/main/java/||
 s|dependencies/fake_slf4j/src/||
 s|dependencies/hppc/hppc/src/main/java/||
 s|dependencies/hppc/hppc/target/generated-sources/main/java/||
 s|dependencies/jackson-annotations/||
+s|dependencies/jackson/annotations/src/main/java/||
+s|dependencies/jackson/core/src/main/java/||
+s|dependencies/jackson/databind/src/main/java/||
 s|dependencies/jts/modules/core/src/main/java/||
+s|dependencies/fastdoubleparser/fastdoubleparser-java8/src/main/java/||
+s|ch\.randelshofer\.fastdoubleparser/||
+s|dependencies/janino/janino/src/main/java/||
+s|dependencies/janino/commons-compiler/src/main/java/||
+s|dependencies/janino/commons-compiler-jdk/src/main/java/||
+s|dependencies/stubs/src/main/java/||

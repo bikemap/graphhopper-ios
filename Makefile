@@ -9,8 +9,8 @@ include make/prepare.mk
 
 GEN_OBJC_DIR := src
 TRANSLATE_LIST := class.list
-TRANSLATE_JAVA_FULL = $(shell if [ -e $(TRANSLATE_LIST) ]; then cat $(TRANSLATE_LIST); fi)
-TRANSLATE_JAVA_RELATIVE = $(shell if [ -e $(TRANSLATE_LIST) ]; then sed -f dependencies/class.sed $(TRANSLATE_LIST); fi)
+TRANSLATE_JAVA_FULL = $(filter-out %/module-info.java,$(shell if [ -e $(TRANSLATE_LIST) ]; then cat $(TRANSLATE_LIST); fi))
+TRANSLATE_JAVA_RELATIVE = $(filter-out %/module-info.java,$(shell if [ -e $(TRANSLATE_LIST) ]; then sed -f dependencies/class.sed $(TRANSLATE_LIST); fi))
 TRANSLATE_SOURCEPATH = dependencies/hppc:dependencies/jackson-annotations:dependencies/jackson/core/src:dependencies/jackson/databind/src:dependencies/jts:dependencies/fastdoubleparser/fastdoubleparser-java8/src/main/java:dependencies/janino/janino/src/main/java:dependencies/janino/commons-compiler/src/main/java:dependencies/janino/commons-compiler-jdk/src/main/java:dependencies/fake_slf4j/src/:dependencies/stubs/src/main/java
 TRANSLATE_ARGS := --doc-comments -encoding UTF-8 --extract-unsequenced --final-methods-as-functions --hide-private-members
 include make/translate.mk
