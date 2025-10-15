@@ -5,20 +5,23 @@ graphhopper-ios wraps [graphhopper](https://github.com/graphhopper/graphhopper/)
 and creates the `libgraphhopper.a` library to be used on iOS. 
 Theoretically it should be possible to include other architectures, but for example MacOS currently doesn't work. 
 
-It uses [j2objc](https://github.com/google/j2objc) to translate the .java sources 
-into Objective-C.
+It uses [j2objc](https://github.com/google/j2objc) to translate the .java sources into Objective-C.
 
 > **Disclaimer:** This is experimental so treat it accordingly. [Feel free to help](CONTRIBUTING.md) in any way.
 
 
 ## Prerequistes
-JDK 8 (Yes, jts source needs JDK 8), recommended is AdoptOpenJDK8
+OpenJDK 21
 Maven 
-XCode 11.4+ (works with XCode 13)
+XCode 13+
 
 ## Getting Started
 
-To get started run the following commands in Terminal:
+To get started you need to build latest [j2objc](https://github.com/google/j2objc) (we used 3.1 last time) first.
+Please ensure that for this you use OpenJDK 21.
+Copy content of `dist` folder to `/j2objc` folder.
+
+Then run the following commands in Terminal:
 
 ```sh
 git clone https://github.com/graphhopper/graphhopper-ios.git
