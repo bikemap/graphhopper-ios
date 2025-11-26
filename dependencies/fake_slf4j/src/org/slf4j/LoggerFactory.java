@@ -3,6 +3,14 @@ package org.slf4j;
 public class LoggerFactory {
     public static Logger getLogger(Class cl) {
         final String name = cl.getSimpleName();
+        return createLogger(name);
+    }
+
+    public static Logger getLogger(String name) {
+        return createLogger(name);
+    }
+
+    private static Logger createLogger(final String name) {
         return new Logger() {
             public void info(String str) {
                log("INFO", str, null);
@@ -42,6 +50,10 @@ public class LoggerFactory {
 
             public void debug(String format, Object... arguments) {
                 log("DEBUG", format, null);
+            }
+
+            public boolean isTraceEnabled() {
+                return false;
             }
             
             public void log(String type, String message, Throwable t) {

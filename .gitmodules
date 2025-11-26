@@ -10,4 +10,16 @@
 [submodule "graphhopper"]
 	path = graphhopper
 	url = https://github.com/bikemap/graphhopper.git
-        branch = ios_compatibility
+	branch = ios_compatibility
+[submodule "dependencies/jackson/core"]
+	path = dependencies/jackson/core
+	url = https://github.com/FasterXML/jackson-core.git
+[submodule "dependencies/jackson/databind"]
+	path = dependencies/jackson/databind
+	url = https://github.com/FasterXML/jackson-databind.git
+[submodule "dependencies/jackson/annotations"]
+	path = dependencies/jackson/annotations
+	url = https://github.com/FasterXML/jackson-annotations.git
+[submodule "dependencies/fastdoubleparser"]
+	path = dependencies/fastdoubleparser
+	url = https://github.com/wrandelshofer/FastDoubleParser.git
